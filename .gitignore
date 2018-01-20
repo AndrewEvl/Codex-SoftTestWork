@@ -1,0 +1,13 @@
+
+
+TaskTracker.iml
+dao/dao.iml
+service/service.iml
+web/web.iml
+.idea/*
+.idea/libraries/*
+dao/target/
+service/target/
+web/target/
+.idea/
+
