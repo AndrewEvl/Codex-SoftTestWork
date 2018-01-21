@@ -1,22 +1,29 @@
 package entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @ToString
 @NoArgsConstructor
 @Data
+@Table(name = "project")
 public class Project extends BaseEntity {
 
+    @Column(name = "name")
     private String name;
+    @OneToMany
+    @JoinColumn(name = "user_id")
     private Set<User> users = new HashSet<>();
-    private User user;
-    private Set<Task> tasks;
+    @OneToOne
+    @JoinColumn(name = "user_creator_id")
+    private User userCreator;
 
 }

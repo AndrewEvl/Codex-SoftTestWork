@@ -1,44 +1,31 @@
 package entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.List;
+import javax.persistence.Table;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
-//@ToString
+@ToString
 @NoArgsConstructor
-//@Data
+@Data
+@Table (name = "user")
 public class User extends BaseEntity {
 
-    @Getter
-    @Setter
+
+    @Column(name = "firstName")
     private String firstName;
-    @Getter
-    @Setter
+
+    @Column(name = "lastName")
     private String lastName;
-    @Getter
-    @Setter
+
+    @Column(name = "role")
     private Role role;
-    @Getter
-    @Setter
-    private List<Task> tasks;
-    @Getter
-    @Setter
-    private List<Project> projects;
 
-    public User(String firstName, String lastName, Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", role=" + role +
-                '}';
-    }
 }
