@@ -19,8 +19,10 @@ public class Project extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @ManyToMany
+    @JoinTable(name = "project_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<User> users = new HashSet<>();
     @OneToOne
     @JoinColumn(name = "user_creator_id")
