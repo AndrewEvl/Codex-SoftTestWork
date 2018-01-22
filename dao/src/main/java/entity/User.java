@@ -27,8 +27,10 @@ public class User extends BaseEntity {
     @Column(name = "role")
     private Role role;
 
+    @Column(name = "mail")
     private String mail;
 
+    @Column(name = "authorization")
     private Authorization authorization;
 
     @ManyToMany

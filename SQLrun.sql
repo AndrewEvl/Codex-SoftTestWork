@@ -1,5 +1,5 @@
 CREATE TABLE project (id INT AUTO_INCREMENT, name VARCHAR(150),user_creator_id INT, PRIMARY KEY (id), FOREIGN KEY (user_creator_id) REFERENCES user(id));
-CREATE TABLE user(id INT AUTO_INCREMENT, first_name VARCHAR(100), last_name VARCHAR(100), role VARCHAR(30), PRIMARY KEY (id));
+CREATE TABLE user(id INT AUTO_INCREMENT, first_name VARCHAR(100), last_name VARCHAR(100), role VARCHAR(30),mail VARCHAR(100),authorization VARCHAR(50), PRIMARY KEY (id));
 CREATE TABLE task (id INT AUTO_INCREMENT,text VARCHAR(500), status VARCHAR(50), PRIMARY KEY (id));
 CREATE TABLE comments (id INT AUTO_INCREMENT,text VARCHAR(5000), user_id INT, task_id INT, PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES user(id), FOREIGN KEY (task_id) REFERENCES task(id)
 );
