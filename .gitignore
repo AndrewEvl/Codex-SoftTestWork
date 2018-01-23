@@ -10,3 +10,8 @@ dao/target/
 service/target/
 web/target/
 .idea/
+/dao/generated/
+dao/generated/
+dao/generated_tests/
+service/generated/
+web/generated/
