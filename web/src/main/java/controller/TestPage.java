@@ -30,30 +30,7 @@ public class TestPage {
 
     @GetMapping("/")
     public String testPage() {
-//        User user = new User();
-//        Project project = new Project();
-//        Task task = new Task();
-//        project.setName("Task Tracker1");
-//        user.setFirstName("Andrew1");
-//        user.setLastName("Evlas1");
-//        user.setRole(Role.MANAGER);
-//        userService.save(user);
-//
-//        project.setUserCreator(user);
-//        List<User> userSet = new LinkedList<>();
-//        userSet.add(user);
-//
-//        projectService.save(project);
-//        project.setUsers(userSet);
-//        projectService.save(project);
-//
-//        task.setProject(project);
-//        task.setStatus(Status.IMPLEMENTATION);
-//        task.setTest("Work this project1");
-//        Set<User> userSetTask = new HashSet<>();
-//        userSetTask.add(user);
-//        task.setUserSet(userSetTask);
-//        taskService.save(task);
+
 
         return "testPage";
     }
