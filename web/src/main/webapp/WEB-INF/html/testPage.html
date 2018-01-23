@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-Hello
+<form th:action="@{/user-save}" method="post" th:object="${user}">
+    <p<label th:for="firstName">EnterFirstName</label>
+    <label>
+        <input type="text" th:field="*{firstName}">
+    </label>
+</form>
 </body>
 </html>
