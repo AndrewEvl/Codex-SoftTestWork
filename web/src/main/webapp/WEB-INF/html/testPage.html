@@ -6,10 +6,32 @@
 </head>
 <body>
 <form th:action="@{/user-save}" method="post" th:object="${user}">
-    <p<label th:for="firstName">EnterFirstName</label>
+    <p> <label th:for="firstName">EnterFirstName</label>
     <label>
         <input type="text" th:field="*{firstName}">
-    </label>
+    </label></p>
+    <p> <label th:for="lastName">EnterLastName</label>
+        <label>
+            <input type="text" th:field="*{lastName}">
+        </label></p>
+    <p> <label th:for="lastName">EnterMail</label>
+        <label>
+            <input type="text" th:field="*{mail}">
+        </label></p>
+    <p> <label th:for="password">EnterPassword</label>
+        <label>
+            <input type="text" th:field="*{password}">
+        </label></p>
+    <p> <label th:for="role">EnterRole</label>
+        <p th:text="${user.role}"
+           th:if="${user.role}">Role</p>
+    <ul>
+        <li th:each="userRole : ${user.role}" th:text="${userRole}">Role
+        </li>
+    </ul>
+        </label></p>
+    <button type="submit">Save</button>
+
 </form>
 </body>
 </html>

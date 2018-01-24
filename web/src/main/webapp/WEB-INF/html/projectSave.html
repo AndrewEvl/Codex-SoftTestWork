@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/project-save}" method="post" th:object="${project}">
+    <p> <label th:for="firstName">EnterFirstName</label>
+        <label>
+            <input type="text" th:field="*{name}">
+        </label></p>
+    <select th:field="*{users}">
+        <option th:each="${users.id}"
+                th:text="${users.lastName}">
+        </option>
+    </select>
+</form>
+    <button type="submit">Save</button>
+
+</body>
+</html>

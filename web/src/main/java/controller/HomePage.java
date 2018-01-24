@@ -1,7 +1,9 @@
 package controller;
 
+
 import entity.Authorization;
 import entity.User;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +18,10 @@ import service.serviceInterdace.UserService;
 public class HomePage {
 
     private final UserService userService;
-    private final ProjectService projectService;
-    private final TaskService taskService;
 
     @Autowired
-    public HomePage(UserService userService, ProjectService projectService, TaskService taskService) {
+    public HomePage(UserService userService) {
         this.userService = userService;
-        this.projectService = projectService;
-        this.taskService = taskService;
     }
 
     @ModelAttribute("user")
@@ -37,10 +35,19 @@ public class HomePage {
     }
 
     @PostMapping("/user-save")
-    public String testPage(User user, Model model) {
+    public String testPage(User user, Model model) throws Exception {
+        boolean emailValidator = EmailValidator.getInstance().isValid(user.getMail());
+        if (!emailValidator){
+            return "redirect:/user-error";
+        }
         user.setAuthorization(Authorization.NO);
         userService.save(user);
         model.addAttribute("user",user);
         return "testPage";
+    }
+
+    @GetMapping("/user-error")
+    public String userErrorGet(){
+        return "ErrorValidateMail";
     }
 }
