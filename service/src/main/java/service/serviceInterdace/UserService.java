@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService {
     User findByMail (String mail);
 
     User findByLastAndFirstName (String firstName, String lastName);
+
+    User findByToken (String token);
 }

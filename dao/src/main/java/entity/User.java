@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -33,6 +31,9 @@ public class User extends BaseEntity {
 
     @Column(name = "mail")
     private String mail;
+
+    @Column(name = "token")
+    private String token;
 
     @Column(name = "authorization")
     private Authorization authorization;

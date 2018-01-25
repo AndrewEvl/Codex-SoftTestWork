@@ -8,8 +8,6 @@ import entity.User;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
 @Repository
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
@@ -27,12 +25,23 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
     @Override
     public User findByMail(String mail) {
-        Session session =getSessionFactory().getCurrentSession();
+        Session session = getSessionFactory().getCurrentSession();
         QUser qUser = new QUser("myUser");
         JPAQuery<User> query = new JPAQuery<>(session);
         query.select(qUser)
                 .from(qUser)
                 .where(qUser.mail.eq(mail));
+        return query.fetchOne();
+    }
+
+    @Override
+    public User findByToken(String token) {
+        Session session = getSessionFactory().getCurrentSession();
+        QUser qUser = new QUser("myUser");
+        JPAQuery<User> query = new JPAQuery<>(session);
+        query.select(qUser)
+                .from(qUser)
+                .where(qUser.token.eq(token));
         return query.fetchOne();
     }
 

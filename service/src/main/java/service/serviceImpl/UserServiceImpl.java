@@ -66,6 +66,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByToken(String token) {
+        return userDao.findByToken(token);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
         User userByMail = userDao.findByMail(mail);
         if (userByMail ==null){
