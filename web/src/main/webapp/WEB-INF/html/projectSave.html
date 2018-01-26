@@ -5,18 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/project-save}" method="post" th:object="${project}">
+<form th:action="@{/project-save}" method="post" th:object="${projectDto}">
     <p> <label th:for="firstName">EnterFirstName</label>
         <label>
-            <input type="text" th:field="*{name}">
+            <input type="text" th:field="*{nameProject}">
         </label></p>
-    <select th:field="*{users}">
-        <option th:each="${users.id}"
-                th:text="${users.lastName}">
+    <select th:field="*{usersId}">
+        <option th:each="user : ${allUsers}"
+                th:value="${user.id}"
+                th:text="${user.lastName}">
         </option>
     </select>
-</form>
+    <select th:field="*{statusId}">
+        <option th:each="status : ${allStatus}"
+                th:value="${status}"
+                th:text="${status}">
+        </option>
+    </select>
     <button type="submit">Save</button>
+</form>
+
 
 </body>
 </html>

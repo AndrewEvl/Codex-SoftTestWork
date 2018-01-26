@@ -25,6 +25,9 @@ public class Project extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private List<User> users;
+
+    @Column(name = "satus")
+    private Status status;
     @OneToOne
     @JoinColumn(name = "user_creator_id")
     private User userCreator;

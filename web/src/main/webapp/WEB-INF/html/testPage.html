@@ -22,13 +22,12 @@
         <label>
             <input type="text" th:field="*{password}">
         </label></p>
-    <p> <label th:for="role">EnterRole</label>
-        <p th:text="${user.role}"
-           th:if="${user.role}">Role</p>
-    <ul>
-        <li th:each="userRole : ${user.role}" th:text="${userRole}">Role
-        </li>
-    </ul>
+    <select th:field="*{role}">
+        <option th:each="role : ${allRoles}"
+                th:value="${role}"
+                th:text="${role}">
+        </option>
+    </select>
         </label></p>
     <button type="submit">Save</button>
 
