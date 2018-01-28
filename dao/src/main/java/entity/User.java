@@ -40,8 +40,8 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "task_user",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tasks_id"))
     private List<Task> tasks;
 
     @ManyToMany(mappedBy = "users")

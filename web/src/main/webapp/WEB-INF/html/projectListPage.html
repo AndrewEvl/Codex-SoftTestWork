@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <p th:each=" project : ${allProject}">
+        <a th:href="@{/project-info/(id=${project.id})}" th:text="*{project.name}">Project list</a>
+    </p>
+</ul>
+</body>
+</html>

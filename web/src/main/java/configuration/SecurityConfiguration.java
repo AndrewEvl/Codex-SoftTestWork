@@ -46,8 +46,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/")
-                .permitAll();
+                .antMatchers("/login")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/project-list",true)
+                .and()
+                .logout()
+                .logoutUrl("/exit")
+                .and()
+                .csrf()
+                .disable();
 
         http.userDetailsService(userDetailsService);
     }

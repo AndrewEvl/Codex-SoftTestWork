@@ -3,6 +3,7 @@ package controller;
 import dto.ProjectDto;
 import entity.Project;
 import entity.Status;
+import entity.Task;
 import entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import service.serviceInterdace.ProjectService;
+import service.serviceInterdace.TaskService;
 import service.serviceInterdace.UserService;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -22,10 +23,12 @@ public class ProjectController {
 
     private final ProjectService projectService;
     private final UserService userService;
+    private final TaskService taskService;
 
-    public ProjectController(ProjectService projectService, UserService userService) {
+    public ProjectController(ProjectService projectService, UserService userService, TaskService taskService) {
         this.projectService = projectService;
         this.userService = userService;
+        this.taskService = taskService;
     }
 
     @ModelAttribute("project")
@@ -68,21 +71,35 @@ public class ProjectController {
     @GetMapping("/project-info")
     public String projectInfoGet (Project project, Model model){
         Long id = project.getId();
-        model.addAttribute("ProjectId", id);
+        model.addAttribute("id", id);
         return "redirect:/project-info/{id}";
     }
 
     @GetMapping("/project-info/{id}")
     public String projectInfoIdGet (@PathVariable("id") Long id, Model model){
         Project project = projectService.findById(id);
-        String name = project.getName();
-        Status status = project.getStatus();
+        List<Task> taskList = taskService.getAll();
         User userCreator = project.getUserCreator();
         List<User> users = project.getUsers();
-        model.addAttribute("nameProject", name);
-        model.addAttribute("statusProject",status);
-        model.addAttribute("userCreator", userCreator);
+        model.addAttribute("user",userCreator);
+        model.addAttribute("project", project);
+        model.addAttribute("allTask", taskList);
         model.addAttribute("allUsers",users);
         return "projectInfoPage";
+    }
+
+
+    @GetMapping("/project-list")
+    public String projectListGet (Model model){
+        List<Project> projectList = projectService.getAll();
+        model.addAttribute("allProject", projectList);
+        return "projectListPage";
+    }
+
+    @PostMapping("/project-list")
+    public String projectListPost (Model model, Project project){
+        Long id = project.getId();
+        model.addAttribute("id",id);
+        return "redirect:/project-info/{id}";
     }
 }

@@ -6,16 +6,27 @@
 </head>
 <body>
 <div>
-    <b>
-        <h th:text="#{project.name}"></h>
-    </b>
+    Project name:
     <p th:text="*{project.name}"></p>
 </div>
 <div>
-    <b>
-        <h th:text="#{project.status}"></h>
-    </b>
-    <p th:text="*{project.getStatus}"></p>
+    Project status:
+    <p th:text="*{project.status}"></p>
+</div>
+<div>
+    Project creator
+    <p th:text="*{user.lastName + user.firstName}"></p>
+</div>
+<div>
+    Project Developers:
+    <p>
+    <ul th:each="users : ${allUser}"
+        th:text="*{allUser.lastName}">
+    </ul>
+    </p>
+</div>
+<div>
+
 </div>
 </body>
 </html>

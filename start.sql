@@ -55,6 +55,7 @@ CREATE TABLE `project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) DEFAULT NULL,
   `user_creator_id` int(11) DEFAULT NULL,
+  `satus` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_creator_id` (`user_creator_id`),
   CONSTRAINT `project_ibfk_1` FOREIGN KEY (`user_creator_id`) REFERENCES `user` (`id`)
@@ -166,8 +167,9 @@ CREATE TABLE `user` (
   `mail` varchar(100) DEFAULT NULL,
   `authorization` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-23 16:32:54
+-- Dump completed on 2018-01-27  2:06:24

@@ -27,12 +27,16 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> getAll() {
+
         return projectDao.findAll();
     }
 
     @Override
     public Project findById(Long id) {
-        return projectDao.findById(id);
+        Project project = projectDao.findById(id);
+        project.getUserCreator();
+        project.getUsers();
+        return project;
     }
 
     @Override

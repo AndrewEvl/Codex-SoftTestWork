@@ -12,25 +12,23 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
-public class MailSender {
-    private final String AUTO_MAIL_LOGIN = "3592401@gmail.com";
-    private final String AUTO_MAIL_PASSWORD = "andrewevlash";
-    private final String MAIL_PROPERTIES = "mail.properties";
+public class MailTestClass {
 
+    public void sendMailClass () throws MessagingException, IOException {
 
-    public User mailConfirmation(User user) throws IOException, MessagingException {
         final Properties properties = new Properties();
-        properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
+        properties.load(MailTestClass.class.getClassLoader().getResourceAsStream("mail.properties"));
+
+        User user = new User();
+
+        user.setMail("Lino220037@gmail.com");
 
         String userMail = user.getMail();
         Session mailSession = Session.getDefaultInstance(properties);
 
-        MailSender mailSender = new MailSender();
-        String generationLink = mailSender.mailGenerationLink();
+        String generationLink = mailGenerationLink();
         user.setToken(generationLink);
         MimeMessage message = new MimeMessage(mailSession);
-        Test test = new Test();
-//        andrewevl298@gmail.com
         message.setFrom(new InternetAddress("3592401@gmail.com"));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(userMail));
         message.setSubject("Hello");
@@ -39,8 +37,8 @@ public class MailSender {
         Transport transport = mailSession.getTransport();
         transport.connect(null, "andrewevlash");
         transport.sendMessage(message, message.getAllRecipients());
+        System.out.println("Mail Send!");
         transport.close();
-        return user;
     }
 
     private String mailGenerationLink() {
@@ -52,5 +50,10 @@ public class MailSender {
             text[i] = characters.charAt(random.nextInt(characters.length()));
         }
         return new String(text);
+    }
+
+    public static void main(String[] args) throws IOException, MessagingException {
+        MailTestClass mailTestClass = new MailTestClass();
+        mailTestClass.sendMailClass();
     }
 }
