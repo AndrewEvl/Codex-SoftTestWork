@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/task-create}" method="post" th:object="${taskDto}">
+    <p> <label th:for="name">Enter task</label>
+        <label>
+            <input type="text" th:field="*{taskName}">
+        </label></p>
+    Projects:<select th:field="*{projectId}">
+        <option th:each="projects : ${allProject}"
+                th:value="${projects.id}"
+                th:text="${projects.name}">
+        </option>
+    </select>
+    Users:<select th:field="*{usersId}">
+    <option th:each="users : ${allUsers}"
+            th:value="${users.id}"
+            th:text="${users.lastName}">
+    </option>
+</select>
+    Status <select th:field="*{statusId}">
+        <option th:each="status : ${statusList}"
+                th:value="${status}"
+                th:text="${status}">
+
+        </option>
+    </select>
+    <button type="submit">Save task</button>
+</form>
+</body>
+</html>

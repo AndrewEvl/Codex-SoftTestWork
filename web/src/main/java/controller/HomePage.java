@@ -85,73 +85,12 @@ public class HomePage {
         return "user-login";
     }
 
+    @GetMapping("/")
+    public String homePageGet (){
+        return "homePage";
+    }
+
     public User mailConfirmation(User user) throws MessagingException {
-
-//        public synchronized void sendMail (String subject, String body, String sender, String recipients) throws
-//        Exception {
-//        String host = "smtp.gmail.com";
-//
-//            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-//
-//            Properties props = new Properties();
-//            props.setProperty("mail.transport.protocol", "smtp");
-//            props.setProperty("mail.host", host);
-//            props.put("mail.smtp.auth", "true");
-//            props.put("mail.smtp.port", "465");
-//            props.put("mail.smtp.socketFactory.port", "465");
-//            props.put("mail.smtp.socketFactory.class",
-//                    "javax.net.ssl.SSLSocketFactory");
-//            props.put("mail.smtp.socketFactory.fallback", "false");
-//            props.setProperty("mail.smtp.quitwait", "false");
-//
-//            Session session = Session.getDefaultInstance(props,
-//                    new javax.mail.Authenticator() {
-//                        protected PasswordAuthentication getPasswordAuthentication() {
-//                            return new PasswordAuthentication("3592401@gmail.com", "andrewevlash");
-//                        }
-//                    });
-//
-//            MimeMessage message = new MimeMessage(session);
-//            message.setSender(new InternetAddress("3592401@gmail.com"));
-//            message.setSubject("Hello");
-//            message.setContent("Text", "text/plain");
-//            if (user.getMail().indexOf(',') > 0)
-//                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getMail()));
-//            else
-//                message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getMail()));
-//
-//
-//            Transport.send(message);
-//
-//        return user;
-//        }
-
-
-//        try (GenericXmlApplicationContext context = new GenericXmlApplicationContext()) {
-//            context.load("classpath:applicationContext.xml");
-//            context.refresh();
-//            JavaMailSender mailSender = context.getBean("mailSender", JavaMailSender.class);
-//            SimpleMailMessage templateMessage = context.getBean("templateMessage", SimpleMailMessage.class);
-//
-//            SimpleMailMessage mailMessage = new SimpleMailMessage(templateMessage);
-//
-//            mailMessage.setTo(user.getMail());
-//            String generationLink = mailGenerationLink();
-//            user.setToken(generationLink);
-//
-//            mailMessage.setText("http://localhost:8080/user-successful/" + generationLink);
-//            try {
-//                mailSender.send(mailMessage);
-//                System.out.println("Mail sended");
-//            } catch (MailException mailException) {
-//                System.out.println("Mail send failed.");
-//                mailException.printStackTrace();
-//            }
-//        }
-//        return user;
-//    }
-
-
 //        final Properties properties = new Properties();
 //        properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
 
@@ -161,7 +100,6 @@ public class HomePage {
 //        String generationLink = mailGenerationLink();
 //        user.setToken(generationLink);
 //        MimeMessage message = new MimeMessage(mailSession);
-////        andrewevl298@gmail.com
 //        message.setFrom(new InternetAddress("3592401@gmail.com"));
 //        message.addRecipient(Message.RecipientType.TO, new InternetAddress(userMail));
 //        message.setSubject("Hello");

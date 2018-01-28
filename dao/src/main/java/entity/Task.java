@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -19,10 +16,7 @@ import java.util.Set;
 public class Task extends BaseEntity {
 
     @Column(name = "text")
-    private String test;
-
-    @ManyToMany(mappedBy = "tasks")
-    private List<User> users;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "project_id")

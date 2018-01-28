@@ -16,7 +16,6 @@ import java.util.List;
 @Table(name = "user")
 public class User extends BaseEntity {
 
-
     @Column(name = "first_name")
     private String firstName;
 
@@ -38,11 +37,9 @@ public class User extends BaseEntity {
     @Column(name = "authorization")
     private Authorization authorization;
 
-    @ManyToMany
-    @JoinTable(name = "task_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tasks_id"))
-    private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 
     @ManyToMany(mappedBy = "users")
     private List<Project> projects;

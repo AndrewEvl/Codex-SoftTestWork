@@ -6,7 +6,7 @@
 </head>
 <body>
 <form th:action="@{/project-save}" method="post" th:object="${projectDto}">
-    <p> <label th:for="firstName">EnterFirstName</label>
+    <p> <label th:for="firstName">Enter project name</label>
         <label>
             <input type="text" th:field="*{nameProject}">
         </label></p>
@@ -14,12 +14,6 @@
         <option th:each="user : ${allUsers}"
                 th:value="${user.id}"
                 th:text="${user.lastName}">
-        </option>
-    </select>
-    <select th:field="*{statusId}">
-        <option th:each="status : ${allStatus}"
-                th:value="${status}"
-                th:text="${status}">
         </option>
     </select>
     <button type="submit">Save</button>

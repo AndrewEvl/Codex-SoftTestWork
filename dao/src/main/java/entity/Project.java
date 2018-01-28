@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@ToString(exclude = "userCreator")
+@ToString(exclude = {"userCreator","users"})
 @NoArgsConstructor
 @Data
 @Table(name = "project")
@@ -18,14 +19,13 @@ public class Project extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "project_user",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private Set<User> users = new HashSet<>();
 
-    @Column(name = "satus")
-    private Status status;
     @OneToOne
     @JoinColumn(name = "user_creator_id")
     private User userCreator;

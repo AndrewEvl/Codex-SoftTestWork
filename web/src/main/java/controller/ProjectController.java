@@ -2,7 +2,6 @@ package controller;
 
 import dto.ProjectDto;
 import entity.Project;
-import entity.Status;
 import entity.Task;
 import entity.User;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,8 @@ import service.serviceInterdace.ProjectService;
 import service.serviceInterdace.TaskService;
 import service.serviceInterdace.UserService;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ProjectController {
@@ -44,8 +43,6 @@ public class ProjectController {
     @GetMapping("/project-save")
     public String projectSaveGet (Model model){
         List<User> userList = userService.getAll();
-        List<Status> statusList = Arrays.asList(Status.IMPLEMENTATION, Status.RELEASING, Status.VERIFYING, Status.WAITING);
-        model.addAttribute("allStatus", statusList);
         model.addAttribute("allUsers", userList);
         return "projectSave";
     }
@@ -53,11 +50,12 @@ public class ProjectController {
     @PostMapping("/project-save")
     public String projectSavePost (ProjectDto projectDto, Model model){
         Project project = new Project();
+        User user = new User();
+        user.getId();
         Long usersId = projectDto.getUsersId();
         User userById= userService.findById(usersId);
         project.setName(projectDto.getNameProject());
         project.setUserCreator(userById);
-        project.setStatus(projectDto.getStatusId());
         projectService.save(project);
         model.addAttribute("projects", project);
         return "redirect:project-save-successful";
@@ -80,7 +78,7 @@ public class ProjectController {
         Project project = projectService.findById(id);
         List<Task> taskList = taskService.getAll();
         User userCreator = project.getUserCreator();
-        List<User> users = project.getUsers();
+        Set<User> users = project.getUsers();
         model.addAttribute("user",userCreator);
         model.addAttribute("project", project);
         model.addAttribute("allTask", taskList);
