@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <b>
+        <h th:text="First name"></h>
+    </b>
+    <p th:text="*{user.firstName}">First name</p>
+</div>
+<div>
+    <b>
+        <h th:text="Last name"></h>
+    </b>
+    <p th:text="*{user.lastName}">Last name</p>
+</div>
+<div>
+    <b>
+        <h th:text="You role"></h>
+    </b>
+    <p th:text="*{user.role}">You role</p>
+</div>
+</body>
+</html>

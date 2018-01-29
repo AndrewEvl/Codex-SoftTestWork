@@ -1,16 +1,15 @@
 package controller;
 
 import dto.TaskDto;
-import entity.Project;
-import entity.Status;
-import entity.Task;
-import entity.User;
+import entity.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import service.serviceInterdace.CommentService;
 import service.serviceInterdace.ProjectService;
 import service.serviceInterdace.TaskService;
 import service.serviceInterdace.UserService;
@@ -23,19 +22,28 @@ import java.util.Set;
 @Controller
 public class TaskController {
 
+    private Long ID;
+
     private final TaskService taskService;
     private final ProjectService projectService;
     private final UserService userService;
+    private final CommentService commentService;
 
-    public TaskController(TaskService taskService, ProjectService projectService, UserService userService) {
+    public TaskController(TaskService taskService, ProjectService projectService, UserService userService, CommentService commentService) {
         this.taskService = taskService;
         this.projectService = projectService;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     @ModelAttribute("task")
     public Task task(){
         return new Task();
+    }
+
+    @ModelAttribute("comment")
+    public Comment comment(){
+        return new Comment();
     }
 
     @ModelAttribute("taskDto")
@@ -57,7 +65,6 @@ public class TaskController {
     @PostMapping("/task-create")
     public String taskSavePost (TaskDto taskDto, Model model){
         Long projectId = taskDto.getProjectId();
-        String taskName = taskDto.getTaskName();
         Long usersId = taskDto.getUsersId();
         Set<User> userList = new HashSet<>();
         User byId = userService.findById(usersId);
@@ -66,7 +73,8 @@ public class TaskController {
         task.setProject(projectService.findById(projectId));
         task.setStatus(taskDto.getStatusId());
         task.setUser(userList);
-        task.setText(taskName);
+        task.setText(taskDto.getTaskText());
+        task.setName(taskDto.getTaskName());
         taskService.save(task);
         return "redirect:/";
     }
@@ -81,9 +89,40 @@ public class TaskController {
     @PostMapping("/task-list")
     public String taskInfoPost (Task task, Model model){
         Long id = task.getId();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userMail = user.getMail();
         model.addAttribute("id", id);
+        return "redirect:/task-info/{id}";
+    }
+
+    @GetMapping("/task-info")
+    public String taskInfoGet (Task task, Model model){
+        Long id = task.getId();
+        model.addAttribute("id",id);
+        return "redirect:/task-info/{id}";
+    }
+
+    @GetMapping("/task-info/{id}")
+    public String taskInfoIdGet (@PathVariable ("id") Long id, Model model){
+        List<Comment> commentsByTaskId = commentService.findByTaskId(id);
+        ID = id;
+        Task taskById = taskService.findById(id);
+        model.addAttribute("allComments", commentsByTaskId);
+        model.addAttribute("task",taskById);
+        return "taskInfoPage";
+    }
+
+    @GetMapping("/task-info/add-comment")
+    public String addCommentGet (){
+        return "addCommentTaskPage";
+    }
+
+    @PostMapping("/task-info/add-comment")
+    public String addCommentPost (Comment comment,Model model) {
+        Task taskById = taskService.findById(ID);
+        User userByMail = userService.findByMail(SecurityContextHolder.getContext().getAuthentication().getName());
+        comment.setTask(taskById);
+        comment.setUser(userByMail);
+        commentService.save(comment);
+        model.addAttribute("id",ID);
         return "redirect:/task-info/{id}";
     }
 

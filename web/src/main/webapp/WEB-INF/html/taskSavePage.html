@@ -6,10 +6,14 @@
 </head>
 <body>
 <form th:action="@{/task-create}" method="post" th:object="${taskDto}">
-    <p> <label th:for="name">Enter task</label>
+    <p> <label th:for="name">Enter task name</label>
         <label>
             <input type="text" th:field="*{taskName}">
-        </label></p>
+        </label>
+    <p> <label th:for="text">Enter task</label>
+        <label>
+            <input type="text" th:field="*{taskText}">
+        </label>
     Projects:<select th:field="*{projectId}">
         <option th:each="projects : ${allProject}"
                 th:value="${projects.id}"

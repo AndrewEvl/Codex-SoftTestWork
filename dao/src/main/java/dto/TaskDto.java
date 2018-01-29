@@ -13,6 +13,7 @@ import lombok.ToString;
 public class TaskDto {
 
     private String taskName;
+    private String taskText;
     private Status statusId;
     private Long projectId;
     private Long usersId;

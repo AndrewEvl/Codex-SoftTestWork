@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/task-info/add-comment}">Add comment</a>
+<h1 th:text="${task.name}"></h1>
+<ul th:each="listComments : ${allComments}">
+    <t th:text="${listComments.user.lastName}"></t>
+    <t th:text="${listComments.text}"></t>
+</ul>
+</body>
+</html>

@@ -17,6 +17,9 @@ import java.util.Set;
 @Table (name = "task")
 public class Task extends BaseEntity {
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "text")
     private String text;
 

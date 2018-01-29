@@ -8,6 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,14 +30,14 @@ import java.util.Properties;
 import java.util.Random;
 
 @Controller
-public class HomePage {
+public class UserController {
 
     private final UserService userService;
 
     private final SimpleMailMessage simpleMailMessage;
 
     @Autowired
-    public HomePage(UserService userService, SimpleMailMessage simpleMailMessage) {
+    public UserController(UserService userService, SimpleMailMessage simpleMailMessage) {
         this.userService = userService;
         this.simpleMailMessage = simpleMailMessage;
     }
@@ -65,7 +66,7 @@ public class HomePage {
         String token = user.getToken();
         model.addAttribute("token",token);
         model.addAttribute("user", mailConfirmationUser);
-        return "redirect:/tokenLink/{token}";
+        return "redirect:/user-successful/{token}";
     }
 
     @GetMapping("/user-error")
@@ -98,7 +99,23 @@ public class HomePage {
         return "homePage";
     }
 
-    public User mailConfirmation(User user) throws MessagingException, IOException {
+    @GetMapping("/user-info")
+    public String userInfoGet(Model model){
+        User userByMail = userService.findByMail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Long id = userByMail.getId();
+        model.addAttribute("id",id);
+        return "redirect:/user-info/{id}";
+    }
+
+    @GetMapping("/user-info/{id}")
+    public String userInfoIdGet (@PathVariable ("id") Long id, Model model){
+        User byId = userService.findById(id);
+        model.addAttribute("user",byId);
+        return "userInfoPage";
+    }
+
+
+    private User mailConfirmation(User user) throws MessagingException, IOException {
         final Properties properties = new Properties();
         properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
 
@@ -118,6 +135,7 @@ public class HomePage {
 //        transport.sendMessage(message, message.getAllRecipients());
 //        transport.close();
 
+        //Second method realisation
         user.setToken(generationLink);
         simpleMailMessage.setTo(user.getMail());
         simpleMailMessage.setText("http://localhost:8080/user-successful" + generationLink);

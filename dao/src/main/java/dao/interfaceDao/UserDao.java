@@ -10,6 +10,4 @@ public interface UserDao extends BaseDao<User> {
     User findByMail (String mail);
 
     User findByToken (String token);
-
-
 }

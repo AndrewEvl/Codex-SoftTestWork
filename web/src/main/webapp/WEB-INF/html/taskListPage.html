@@ -7,7 +7,7 @@
 <body>
 <ul>
     <p th:each="task : ${allTask}">
-        <a th:href="@{/task-info/(id=${task.id})}" th:text="*{task.text}"></a>
+        <a th:href="@{/task-info/(id=${task.id})}" th:text="*{task.name}"></a>
     </p>
 </ul>
 </body>

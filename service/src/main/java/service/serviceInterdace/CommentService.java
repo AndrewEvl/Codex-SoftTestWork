@@ -15,4 +15,6 @@ public interface CommentService {
     void update (Comment comment);
 
     void delete (Comment comment);
+
+    List<Comment> findByTaskId (Long id);
 }
