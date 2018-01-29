@@ -1,6 +1,8 @@
 package service.serviceImpl;
 
 import dao.interfaceDao.UserDao;
+import entity.Project;
+import entity.Task;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,7 +50,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userDao.findById(id);
+        User byId = userDao.findById(id);
+        Set<Task> tasks = byId.getTasks();
+        List<Project> projects = byId.getProjects();
+        byId.setTasks(tasks);
+        byId.setProjects(projects);
+        return byId;
     }
 
     @Override

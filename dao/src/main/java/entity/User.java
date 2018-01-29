@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@ToString(exclude = "projects")
+@ToString(exclude = {"projects","tasks","projects"})
 @NoArgsConstructor
 @Data
 @Table(name = "user")
@@ -37,10 +39,12 @@ public class User extends BaseEntity {
     @Column(name = "authorization")
     private Authorization authorization;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_task",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "task_id"))
+    private Set<Task> tasks = new HashSet<>();
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
     private List<Project> projects;
 }

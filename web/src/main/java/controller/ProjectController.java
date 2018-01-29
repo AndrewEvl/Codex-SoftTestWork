@@ -50,8 +50,6 @@ public class ProjectController {
     @PostMapping("/project-save")
     public String projectSavePost (ProjectDto projectDto, Model model){
         Project project = new Project();
-        User user = new User();
-        user.getId();
         Long usersId = projectDto.getUsersId();
         User userById= userService.findById(usersId);
         project.setName(projectDto.getNameProject());

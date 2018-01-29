@@ -6,6 +6,7 @@ import entity.Role;
 import entity.User;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import service.serviceInterdace.UserService;
 
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 @Controller
@@ -90,27 +98,26 @@ public class HomePage {
         return "homePage";
     }
 
-    public User mailConfirmation(User user) throws MessagingException {
-//        final Properties properties = new Properties();
-//        properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
+    public User mailConfirmation(User user) throws MessagingException, IOException {
+        final Properties properties = new Properties();
+        properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));
 
-//        String userMail = user.getMail();
-//        Session mailSession = Session.getDefaultInstance(properties);
-//
-//        String generationLink = mailGenerationLink();
-//        user.setToken(generationLink);
-//        MimeMessage message = new MimeMessage(mailSession);
-//        message.setFrom(new InternetAddress("3592401@gmail.com"));
-//        message.addRecipient(Message.RecipientType.TO, new InternetAddress(userMail));
-//        message.setSubject("Hello");
-//        message.setText("http://localhost:8080/user-successful/" + generationLink);
-//
-//        Transport transport = mailSession.getTransport();
-//        transport.connect(null, "andrewevlash");
+        String userMail = user.getMail();
+        Session mailSession = Session.getDefaultInstance(properties);
+
+        String generationLink = mailGenerationLink();
+        user.setToken(generationLink);
+        MimeMessage message = new MimeMessage(mailSession);
+        message.setFrom(new InternetAddress("3592401@gmail.com"));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(userMail));
+        message.setSubject("Hello");
+        message.setText("http://localhost:8080/user-successful/" + generationLink);
+
+        Transport transport = mailSession.getTransport();
+        transport.connect(null, "andrewevlash");
 //        transport.sendMessage(message, message.getAllRecipients());
 //        transport.close();
 
-        String generationLink = mailGenerationLink();
         user.setToken(generationLink);
         simpleMailMessage.setTo(user.getMail());
         simpleMailMessage.setText("http://localhost:8080/user-successful" + generationLink);

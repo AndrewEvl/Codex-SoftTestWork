@@ -60,11 +60,12 @@ public class TaskController {
         String taskName = taskDto.getTaskName();
         Long usersId = taskDto.getUsersId();
         Set<User> userList = new HashSet<>();
-        userList.add(userService.findById(usersId));
+        User byId = userService.findById(usersId);
+        userList.add(byId);
         Task task = new Task();
         task.setProject(projectService.findById(projectId));
         task.setStatus(taskDto.getStatusId());
-//        task.setUsers(userList);
+        task.setUser(userList);
         task.setText(taskName);
         taskService.save(task);
         return "redirect:/";
