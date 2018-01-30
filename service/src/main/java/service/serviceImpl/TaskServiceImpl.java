@@ -44,4 +44,9 @@ public class TaskServiceImpl implements TaskService {
     public void delete(Task task) {
         taskDao.delete(task);
     }
+
+    @Override
+    public List<Task> findByProjectId(Long id) {
+        return taskDao.findByProjectId(id);
+    }
 }

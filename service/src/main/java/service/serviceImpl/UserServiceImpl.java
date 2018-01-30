@@ -1,8 +1,7 @@
 package service.serviceImpl;
 
 import dao.interfaceDao.UserDao;
-import entity.Project;
-import entity.Task;
+import dto.UserDto;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,16 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import service.serviceInterdace.UserService;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -50,12 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        User byId = userDao.findById(id);
-        Set<Task> tasks = byId.getTasks();
-        List<Project> projects = byId.getProjects();
-        byId.setTasks(tasks);
-        byId.setProjects(projects);
-        return byId;
+        return userDao.findById(id);
     }
 
     @Override
@@ -82,6 +70,12 @@ public class UserServiceImpl implements UserService {
     public User findByToken(String token) {
         return userDao.findByToken(token);
     }
+
+    @Override
+    public UserDto findByIdDto(Long id) {
+        return userDao.findByIdDto(id);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {

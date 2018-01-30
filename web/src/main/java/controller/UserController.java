@@ -71,7 +71,7 @@ public class UserController {
 
     @GetMapping("/user-error")
     public String userErrorGet() {
-        return "ErrorValidateMail";
+        return "errorValidateMail";
     }
 
     @GetMapping("/tokenLink/{token}")

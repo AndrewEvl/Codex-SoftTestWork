@@ -1,11 +1,9 @@
 package service.serviceInterdace;
 
+import dto.UserDto;
 import entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import java.io.IOException;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
@@ -26,4 +24,5 @@ public interface UserService extends UserDetailsService {
 
     User findByToken (String token);
 
+    UserDto findByIdDto (Long id);
 }

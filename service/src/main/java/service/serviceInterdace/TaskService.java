@@ -16,5 +16,7 @@ public interface TaskService {
 
     void delete (Task task);
 
+    List<Task> findByProjectId(Long id);
+
 
 }

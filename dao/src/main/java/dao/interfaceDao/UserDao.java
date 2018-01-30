@@ -1,6 +1,7 @@
 package dao.interfaceDao;
 
 import dao.common.BaseDao;
+import dto.UserDto;
 import entity.User;
 
 public interface UserDao extends BaseDao<User> {
@@ -10,4 +11,6 @@ public interface UserDao extends BaseDao<User> {
     User findByMail (String mail);
 
     User findByToken (String token);
+
+    UserDto findByIdDto (Long id);
 }

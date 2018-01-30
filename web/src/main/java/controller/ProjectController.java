@@ -74,7 +74,7 @@ public class ProjectController {
     @GetMapping("/project-info/{id}")
     public String projectInfoIdGet (@PathVariable("id") Long id, Model model){
         Project project = projectService.findById(id);
-        List<Task> taskList = taskService.getAll();
+        List<Task> taskList = taskService.findByProjectId(id);
         User userCreator = project.getUserCreator();
         Set<User> users = project.getUsers();
         model.addAttribute("user",userCreator);

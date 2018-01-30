@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "user")
 @Entity
-@ToString
+@ToString(exclude = "user")
 @NoArgsConstructor
 @Data
 @Table (name = "task")
@@ -23,7 +23,10 @@ public class Task extends BaseEntity {
     @Column(name = "text")
     private String text;
 
-    @ManyToMany(mappedBy = "tasks")
+    @ManyToMany
+    @JoinTable(name = "user_task",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> user = new HashSet<>();
 
     @ManyToOne

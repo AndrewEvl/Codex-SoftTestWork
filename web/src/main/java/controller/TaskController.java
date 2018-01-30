@@ -15,9 +15,7 @@ import service.serviceInterdace.TaskService;
 import service.serviceInterdace.UserService;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class TaskController {
@@ -64,15 +62,22 @@ public class TaskController {
 
     @PostMapping("/task-create")
     public String taskSavePost (TaskDto taskDto, Model model){
+        User user = new User();
         Long projectId = taskDto.getProjectId();
         Long usersId = taskDto.getUsersId();
-        Set<User> userList = new HashSet<>();
         User byId = userService.findById(usersId);
-        userList.add(byId);
+//        Set<User> userList = new HashSet<>();
+//        UserDto byIdDto = userService.findByIdDto(usersId);
+//        user.setLastName(byIdDto.getLastName());
+//        user.setFirstName(byIdDto.getFirstName());
+//        user.setRole(byIdDto.getRole());
+//        user.setProjects(byIdDto.getProjects());
+//        user.setTasks(byIdDto.getTasks());
+//        userList.add(user);
         Task task = new Task();
         task.setProject(projectService.findById(projectId));
         task.setStatus(taskDto.getStatusId());
-        task.setUser(userList);
+        task.getUser().add(byId);
         task.setText(taskDto.getTaskText());
         task.setName(taskDto.getTaskName());
         taskService.save(task);

@@ -3,6 +3,7 @@ package dao.daoImpl;
 import com.querydsl.jpa.impl.JPAQuery;
 import dao.common.BaseDaoImpl;
 import dao.interfaceDao.UserDao;
+import dto.UserDto;
 import entity.QUser;
 import entity.User;
 import org.hibernate.Session;
@@ -45,5 +46,21 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
         return query.fetchOne();
     }
 
-
+    @Override
+    public UserDto findByIdDto(Long id) {
+        Session session = getSessionFactory().getCurrentSession();
+        QUser qUser = new QUser("myUser");
+        JPAQuery<User> query = new JPAQuery<>(session);
+        query.select(qUser)
+                .from(qUser)
+                .where(qUser.id.eq(id));
+        User user = query.fetchOne();
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setMail(user.getMail());
+        userDto.setTasks(user.getTasks());
+        userDto.setProjects(user.getProjects());
+        return userDto;
+    }
 }

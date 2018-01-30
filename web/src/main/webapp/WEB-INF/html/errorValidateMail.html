@@ -14,20 +14,6 @@
     <a th:href="@{/exit}">Exit</a>
 </head>
 <body>
-<form th:action="@{/project-save}" method="post" th:object="${projectDto}">
-    <p> <label th:for="firstName">Enter project name</label>
-        <label>
-            <input type="text" th:field="*{nameProject}">
-        </label></p>
-    <select th:field="*{usersId}">
-        <option th:each="user : ${allUsers}"
-                th:value="${user.id}"
-                th:text="${user.lastName}">
-        </option>
-    </select>
-    <button type="submit">Save</button>
-</form>
-
-
+Wrong mail!
 </body>
 </html>

@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <a th:href="@{/}">Home Page</a>
+    <a th:href="@{/user-info}">User info</a>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/project-list}">Project list</a>
+    <a th:href="@{/user-save}">Create user</a>
+    <a th:href="@{/project-save}">Project create</a>
+    <a th:href="@{/task-create}">Task create</a>
+    <a th:href="@{/task-list}">Task list</a>
+    <a th:href="@{/exit}">Exit</a>
 </head>
 <body>
 <div>
     <b>
-        <h th:text="First name"></h>
+        <h text="First name"></h>
     </b>
     <p th:text="*{user.firstName}">First name</p>
 </div>
 <div>
     <b>
-        <h th:text="Last name"></h>
+        <h text="Last name"></h>
     </b>
     <p th:text="*{user.lastName}">Last name</p>
 </div>
 <div>
     <b>
-        <h th:text="You role"></h>
+        <h text="You role"></h>
     </b>
     <p th:text="*{user.role}">You role</p>
 </div>
