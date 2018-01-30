@@ -20,10 +20,7 @@ public class Project extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "project_user",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "projects")
     private Set<User> users = new HashSet<>();
 
     @OneToOne
