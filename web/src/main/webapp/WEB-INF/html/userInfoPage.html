@@ -15,22 +15,33 @@
 </head>
 <body>
 <div>
+    First name:
     <b>
         <h text="First name"></h>
     </b>
     <p th:text="*{user.firstName}">First name</p>
 </div>
+Last name:
 <div>
     <b>
         <h text="Last name"></h>
     </b>
     <p th:text="*{user.lastName}">Last name</p>
 </div>
+Role:
 <div>
     <b>
         <h text="You role"></h>
     </b>
     <p th:text="*{user.role}">You role</p>
+</div>
+Tasks:
+<div>
+<ul>
+    <p th:each="task : ${allTask}">
+        <a th:href="@{/task-info/(id=${task.id})}" th:text="*{task.name}"></a>
+    </p>
+</ul>
 </div>
 </body>
 </html>

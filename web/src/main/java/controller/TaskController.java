@@ -16,6 +16,7 @@ import service.serviceInterdace.UserService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TaskController {
@@ -61,23 +62,14 @@ public class TaskController {
     }
 
     @PostMapping("/task-create")
-    public String taskSavePost (TaskDto taskDto, Model model){
+    public String taskSavePost (TaskDto taskDto){
         User user = new User();
         Long projectId = taskDto.getProjectId();
-        Long usersId = taskDto.getUsersId();
-        User byId = userService.findById(usersId);
-//        Set<User> userList = new HashSet<>();
-//        UserDto byIdDto = userService.findByIdDto(usersId);
-//        user.setLastName(byIdDto.getLastName());
-//        user.setFirstName(byIdDto.getFirstName());
-//        user.setRole(byIdDto.getRole());
-//        user.setProjects(byIdDto.getProjects());
-//        user.setTasks(byIdDto.getTasks());
-//        userList.add(user);
         Task task = new Task();
+        user.setId(taskDto.getUsersId());
         task.setProject(projectService.findById(projectId));
         task.setStatus(taskDto.getStatusId());
-        task.getUser().add(byId);
+        task.getUser().add(user);
         task.setText(taskDto.getTaskText());
         task.setName(taskDto.getTaskName());
         taskService.save(task);
@@ -110,6 +102,9 @@ public class TaskController {
         List<Comment> commentsByTaskId = commentService.findByTaskId(id);
         ID = id;
         Task taskById = taskService.findById(id);
+        TaskDto byIdDto = taskService.findByIdDto(id);
+        Set<User> user = byIdDto.getUsers();
+        model.addAttribute("allUsers", user);
         model.addAttribute("allComments", commentsByTaskId);
         model.addAttribute("task",taskById);
         return "taskInfoPage";

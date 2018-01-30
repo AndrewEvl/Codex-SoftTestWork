@@ -14,8 +14,15 @@
     <a th:href="@{/exit}">Exit</a>
 </head>
 <body>
-<div>
-Hi! My name is Andrew! I'm very glad if the project started with you =) First you need to register in the system, create a project and task. In the project, not everything works well. I know about these problems and I know how to fix them)
-</div>
+<form th:action="@{/add-user-project}" method="post" th:object="${user}">
+    Add user in project
+    <select th:field="*{projects.id}">
+        <option th:each="allUsers : ${allUsers}"
+                th:value="${allUsers.id}"
+                th:text="${allUsers.lastName + allUsers.role}">
+        </option>
+    </select>
+    <button type="submit">Add user</button>
+</form>
 </body>
 </html>

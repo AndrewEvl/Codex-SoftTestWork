@@ -1,6 +1,8 @@
 package service.serviceInterdace;
 
+import dto.TaskDto;
 import entity.Task;
+import entity.User;
 
 import java.util.List;
 
@@ -18,5 +20,6 @@ public interface TaskService {
 
     List<Task> findByProjectId(Long id);
 
+    TaskDto findByIdDto (Long id);
 
 }

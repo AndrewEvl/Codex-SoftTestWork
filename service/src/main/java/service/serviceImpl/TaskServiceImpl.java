@@ -1,6 +1,7 @@
 package service.serviceImpl;
 
 import dao.interfaceDao.TaskDao;
+import dto.TaskDto;
 import entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findByProjectId(Long id) {
         return taskDao.findByProjectId(id);
+    }
+
+    @Override
+    public TaskDto findByIdDto(Long id) {
+        Task byId = taskDao.findById(id);
+        TaskDto taskDto = new TaskDto();
+        taskDto.setUsers(byId.getUser());
+        return taskDto;
     }
 }

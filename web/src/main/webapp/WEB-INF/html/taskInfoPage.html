@@ -17,8 +17,21 @@
 <div>
 <a th:href="@{/task-info/add-comment}">Add comment</a>
 </div>
+Task name:
 <h1 th:text="${task.name}"></h1>
-<h th:text="${task.text}"></h>
+Project name:
+<div>
+<a th:href="@{/project-info/(id=${task.project.id})}" th:text="*{task.project.name}">Project list</a>
+</div>
+Task:
+<p th:text="${task.text}"></p>
+Users in this task:
+<div>
+<ul th:each="listUsers : ${allUsers}">
+    <t th:text="${listUsers.lastName}"></t>
+</ul>
+</div>
+Comments:
 <ul th:each="listComments : ${allComments}">
     <t th:text="${listComments.user.lastName}"></t>
     <t th:text="${listComments.text}"></t>

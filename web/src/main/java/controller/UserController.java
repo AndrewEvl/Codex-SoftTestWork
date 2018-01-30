@@ -1,9 +1,8 @@
 package controller;
 
 
-import entity.Authorization;
-import entity.Role;
-import entity.User;
+import dto.UserDto;
+import entity.*;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -24,10 +23,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -110,6 +106,11 @@ public class UserController {
     @GetMapping("/user-info/{id}")
     public String userInfoIdGet (@PathVariable ("id") Long id, Model model){
         User byId = userService.findById(id);
+        UserDto byIdDto = userService.findByIdDto(id);
+        Set<Task> tasks = byId.getTasks();
+        Set<Project> projects = byId.getProjects();
+        model.addAttribute("allTask", tasks);
+        model.addAttribute("allProject", projects);
         model.addAttribute("user",byId);
         return "userInfoPage";
     }

@@ -20,6 +20,8 @@ import java.util.Set;
 @Controller
 public class ProjectController {
 
+    private Long ID;
+
     private final ProjectService projectService;
     private final UserService userService;
     private final TaskService taskService;
@@ -73,15 +75,36 @@ public class ProjectController {
 
     @GetMapping("/project-info/{id}")
     public String projectInfoIdGet (@PathVariable("id") Long id, Model model){
+        ID = id;
         Project project = projectService.findById(id);
         List<Task> taskList = taskService.findByProjectId(id);
+        List<User> userList = userService.getAll();
         User userCreator = project.getUserCreator();
         Set<User> users = project.getUsers();
+        model.addAttribute("allUsers",userList);
         model.addAttribute("user",userCreator);
         model.addAttribute("project", project);
         model.addAttribute("allTask", taskList);
         model.addAttribute("allUsers",users);
         return "projectInfoPage";
+    }
+
+    @GetMapping("/add-user-project")
+    public String addUserProjectGet (Model model){
+        List<User> all = userService.getAll();
+        model.addAttribute("allUsers",all);
+        return "addUserInProject";
+    }
+
+    @PostMapping("/add-user-project")
+    public String addUserProjectPost (User user,Model model){
+        Project byId = projectService.findById(ID);
+        List<User> userList = userService.getAll();
+        user.getProjects().add(byId);
+        userService.save(user);
+        model.addAttribute("id",ID);
+        model.addAttribute("allUsers",userList);
+        return "redirect://project-info/{id}";
     }
 
 
